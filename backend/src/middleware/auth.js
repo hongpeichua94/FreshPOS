@@ -30,7 +30,7 @@ const authAdmin = (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
 
-      if (decoded.role === "admin") {
+      if (decoded.role === "ADMIN") {
         req.decoded = decoded;
         next();
       } else {

@@ -21,11 +21,19 @@ const register = async (req, res) => {
 
     // Insert the new user into the users table
     const newUser = await db.query(
-      "INSERT INTO users (email, password) VALUES ($1, $2)",
+      "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING uuid",
       [req.body.email, hash]
     );
 
-    res.json({ status: "ok", msg: "User created successfully" });
+    // Create a shopping cart for the user
+    const userId = newUser.rows[0].uuid;
+
+    await db.query(
+      "INSERT INTO cart (user_id, subtotal, total) VALUES ($1,$2,$3)",
+      [userId, 0.0, 0.0]
+    );
+
+    res.json({ status: "ok", msg: "User and cart created successfully" });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "Invalid registration" });
