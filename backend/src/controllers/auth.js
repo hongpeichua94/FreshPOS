@@ -66,7 +66,11 @@ const login = async (req, res) => {
       jwtid: uuidv4(),
     });
 
-    res.json({ access, refresh, user_id: user.uuid });
+    res.json({
+      access,
+      refresh,
+      user_id: user.uuid,
+    });
   } catch (error) {
     console.error(error.message);
     return res
