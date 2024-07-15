@@ -78,6 +78,7 @@ const login = async (req, res) => {
       access,
       refresh,
       user_id: user.uuid,
+      role: user.role,
     });
   } catch (error) {
     console.error(error.message);
