@@ -1,6 +1,18 @@
 const db = require("../db/db");
 const bcrypt = require("bcrypt");
 
+const getUserById = async (req, res) => {
+  try {
+    const user = await db.query("SELECT * FROM users WHERE uuid = $1", [
+      req.params.uuid,
+    ]);
+    res.json(user.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting user" });
+  }
+};
+
 // Update user details by uuid (params)
 const updateUserDetails = async (req, res) => {
   try {
@@ -57,4 +69,4 @@ const updateUserDetails = async (req, res) => {
   }
 };
 
-module.exports = { updateUserDetails };
+module.exports = { getUserById, updateUserDetails };
