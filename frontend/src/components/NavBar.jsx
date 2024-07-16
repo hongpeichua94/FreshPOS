@@ -41,7 +41,7 @@ const NavBar = () => {
           <Link to="/cart">
             <ShoppingOutlined style={{ fontSize: "28px", margin: "10px" }} />
           </Link>
-          <Link to="/cart">
+          <Link to="/order">
             <FileTextOutlined
               style={{ fontSize: "28px", marginRight: "15px" }}
               href="/"
