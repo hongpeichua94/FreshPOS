@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
+import CreateAccountModal from "../components/CreateAccountModal";
+
 import styles from "./Login.module.css";
 
 import { Button, Form, Input, Typography } from "antd";
@@ -10,6 +12,7 @@ const Login = () => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
 
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,75 +42,93 @@ const Login = () => {
     }
   };
 
+  const handleRegisterUser = async () => {
+    alert("Clickd");
+  };
+
+  const createModal = () => {
+    setShowCreateAccountModal(true);
+  };
+
   return (
     <>
+      {showCreateAccountModal && (
+        <CreateAccountModal
+          setShowCreateAccountModal={setShowCreateAccountModal}
+        ></CreateAccountModal>
+      )}
+
       <div className={styles.login}>
         <Title style={{ textAlign: "center" }}>
           Welcome to FreshFruits (Beta)
         </Title>
-        <div className={styles.logincontainer}>
-          <div className={styles.loginform}>
-            <Form
-              name="basic"
-              labelCol={{
-                span: 8,
-              }}
-              wrapperCol={{
-                span: 16,
-              }}
-              style={{
-                maxWidth: 600,
-              }}
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
+
+        <div className={styles.loginform}>
+          <Form
+            name="basic"
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            style={{
+              maxWidth: 600,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+          >
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             >
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your email!",
-                  },
-                ]}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              >
-                <Input />
-              </Form.Item>
+              <Input />
+            </Form.Item>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              >
-                <Input.Password />
-              </Form.Item>
-              <br />
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            >
+              <Input.Password />
+            </Form.Item>
+            <br />
 
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                onClick={handleLogin}
               >
-                <Button type="primary" htmlType="submit" onClick={handleLogin}>
-                  Login
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
+                Login
+              </Button>{" "}
+              <br></br>
+              Or
+              <Button type="link" onClick={createModal}>
+                register now!
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
       </div>
     </>
