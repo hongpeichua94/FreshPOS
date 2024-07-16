@@ -1,0 +1,29 @@
+.login {
+  background-image: url(../assets/herobanner.jpg);
+  background-size: cover;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  padding: 5em;
+  height: 100vh;
+}
+
+.login h1 {
+  font-size: 80px;
+  font-weight: 800;
+  font-style: normal;
+  color: #ffffff;
+  margin-top: 50px;
+}
+
+.loginform {
+  /* display: flex; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 50vw;
+  border-radius: 10px;
+  padding: 40px;
+}
