@@ -16,7 +16,6 @@ export const getInventoryInfo = async (accessToken) => {
   }
 };
 
-// RESPECTIVE TO THE LOGGED IN USER
 export const getAccountInfo = async (userId, accessToken) => {
   try {
     const res = await fetchData(
@@ -27,7 +26,6 @@ export const getAccountInfo = async (userId, accessToken) => {
     );
 
     if (res.ok) {
-      // console.log(res.data[0]);
       return res.data[0];
     } else {
       console.error(res.data);
@@ -50,7 +48,6 @@ export const getCartDetail = async (userId, accessToken) => {
     );
     if (res.ok) {
       return res.data;
-      console.log(res.data);
     } else {
       console.error(res.data);
     }
@@ -72,7 +69,40 @@ export const getCartSummary = async (userId, accessToken) => {
     );
     if (res.ok) {
       return res.data;
-      console.log(res.data);
+    } else {
+      console.error(res.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getAllOrders = async (accessToken) => {
+  try {
+    const res = await fetchData(`/api/order`, "GET", undefined, accessToken);
+    if (res.ok) {
+      return res.data;
+    } else {
+      console.error(res.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getUserOrders = async (userId, accessToken) => {
+  try {
+    const res = await fetchData(
+      `/api/order`,
+      "POST",
+      {
+        user_id: userId,
+      },
+      undefined,
+      accessToken
+    );
+    if (res.ok) {
+      return res.data;
     } else {
       console.error(res.data);
     }
