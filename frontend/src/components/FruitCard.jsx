@@ -48,7 +48,6 @@ const FruitCard = (props) => {
         >
           Add to Cart
         </Button>,
-        ,
       ]}
     >
       <Meta
