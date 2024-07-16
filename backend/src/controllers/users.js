@@ -39,6 +39,11 @@ const updateUserDetails = async (req, res) => {
       queryParams.push(updateDetails.phone);
     }
 
+    if ("email" in req.body) {
+      updateDetails.email = req.body.email;
+      queryParams.push(updateDetails.email);
+    }
+
     if (queryParams.length === 0) {
       return res.status(400).json({ error: "No fields provided for update" });
     }

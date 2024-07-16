@@ -2,7 +2,10 @@ const express = require("express");
 
 const { getUserById, updateUserDetails } = require("../controllers/users");
 
-const { validateIdInParam } = require("../validators/users");
+const {
+  validateIdInParam,
+  validateUpdateUserData,
+} = require("../validators/users");
 
 const { errorCheck } = require("../validators/errorCheck");
 
@@ -15,6 +18,7 @@ router.patch(
   "/user/:uuid",
   authUser,
   validateIdInParam,
+  validateUpdateUserData,
   errorCheck,
   updateUserDetails
 );
