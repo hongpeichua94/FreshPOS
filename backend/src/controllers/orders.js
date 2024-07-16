@@ -3,6 +3,42 @@ const db = require("../db/db");
 const getAllOrders = async (req, res) => {
   try {
     let query = `
+    WITH order_summary as (
+      SELECT
+        b.created_at,
+        b.uuid, 
+        STRING_AGG(CONCAT(a.quantity, ' x ', c.name)::text, ', ') AS items,
+        b.subtotal, 
+        b.total, 
+        b.status,
+        b.user_id
+      FROM order_items a
+      JOIN orders b ON a.order_id = b.uuid
+      JOIN fruits c on a.fruit_id = c.id
+      GROUP BY 1,2,4,5,6)
+      
+      SELECT
+        a.*,
+        b.email,
+        b.first_name,
+        b.last_name,
+        b.phone
+      FROM order_summary a
+      JOIN users b ON a.user_id = b.uuid`;
+
+    const allOrders = await db.query(query);
+    res.json(allOrders.rows);
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error getting cart details" });
+  }
+};
+
+const getOrdersByUserId = async (req, res) => {
+  try {
+    let query = `
       SELECT
         b.created_at,
         b.uuid, 
@@ -13,9 +49,10 @@ const getAllOrders = async (req, res) => {
       FROM order_items a
       JOIN orders b ON a.order_id = b.uuid
       JOIN fruits c on a.fruit_id = c.id
+      WHERE b.user_id = $1
       GROUP BY 1,2,4,5,6`;
 
-    const allOrders = await db.query(query);
+    const allOrders = await db.query(query, [req.body.user_id]);
     res.json(allOrders.rows);
   } catch (error) {
     console.error(error.message);
@@ -176,6 +213,7 @@ const updateOrderStatusAndInventory = async (req, res) => {
 
 module.exports = {
   getAllOrders,
+  getOrdersByUserId,
   createNewOrder,
   updateOrderStatusAndInventory,
 };
