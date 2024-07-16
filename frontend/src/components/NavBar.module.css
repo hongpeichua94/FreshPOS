@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar h5,
+p {
+  margin: 0px 30px;
+}
+
+.navbar p:nth-child(n + 2) {
+  margin-left: auto;
+}
+
+.navbar p a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navbar p a:hover {
+  color: #1678ff;
+  /* padding-bottom: 0.25rem; */
+  /* border-bottom: 2px solid #1678ff; */
+}

@@ -1,0 +1,24 @@
+.herobanner {
+  background-image: url(../assets/herobanner.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  padding: 5em;
+  height: 50vh;
+}
+
+.herobanner h1 {
+  font-size: 80px;
+  font-weight: 800;
+  font-style: normal;
+  color: #ffffff;
+}
+
+.herobanner h3 {
+  font-size: 50px;
+  font-weight: 600;
+  font-style: normal;
+  color: #ffffff;
+}
