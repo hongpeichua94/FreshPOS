@@ -101,9 +101,33 @@ const addCartItem = async (req, res) => {
   }
 };
 
+// Delete cart item must update cart summary also
 const deleteCartItem = async (req, res) => {
   try {
+    const cartItemResult = await db.query(
+      "SELECT cart_id FROM cart_items WHERE uuid = $1",
+      [req.body.uuid]
+    );
+
+    const cartId = cartItemResult.rows[0].cart_id;
+
     await db.query("DELETE FROM cart_items WHERE uuid = $1", [req.body.uuid]);
+
+    // Calculate the updated cart subtotal
+    const cartItemsResult = await db.query(
+      "SELECT SUM(subtotal) as cart_total FROM cart_items WHERE cart_id = $1",
+      [cartId]
+    );
+
+    const newCartSubtotal = cartItemsResult.rows[0].cart_total;
+    const newCartTotal = 1.09 * newCartSubtotal;
+
+    // Update the cart subtotal in the cart table
+    await db.query(
+      "UPDATE cart SET subtotal = $1, total = $2 WHERE uuid = $3",
+      [newCartSubtotal, newCartTotal, cartId]
+    );
+
     res.json({ status: "ok", msg: "Item removed from cart" });
   } catch (error) {
     console.error(error.message);

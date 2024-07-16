@@ -18,8 +18,8 @@ const { authUser, authAdmin } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/cart", getCartByUserId);
-router.get("/cart/items", getCartItemsByUserId);
+router.post("/cart", getCartByUserId);
+router.post("/cart/items", getCartItemsByUserId);
 router.put("/cart", authUser, addCartItem);
 router.delete("/cart", authUser, deleteCartItem);
 
