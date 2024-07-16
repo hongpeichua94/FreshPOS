@@ -5,6 +5,8 @@
   height: 4rem;
   background-color: #ffffff;
   color: #000000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  border-bottom: 1px solid #e0e0e0; /* Adds a bottom border */
 }
 
 .navbar h5,
@@ -23,6 +25,4 @@ p {
 
 .navbar p a:hover {
   color: #1678ff;
-  /* padding-bottom: 0.25rem; */
-  /* border-bottom: 2px solid #1678ff; */
 }

@@ -5,6 +5,8 @@ import UserContext from "../context/user";
 
 import styles from "./NavBar.module.css";
 
+import { Button } from "antd";
+
 import {
   UserOutlined,
   ShoppingOutlined,
@@ -32,22 +34,24 @@ const NavBar = () => {
   return (
     <>
       <header className={styles.navbar}>
-        <Link to="/home">
-          <h5>FreshFruits</h5>
+        <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
+          <h5>The FreshFruits Store</h5>
         </Link>
         <p style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-          <UserOutlined style={{ fontSize: "28px", marginRight: "10px" }} />
           Hello, {accountDetails.first_name}!
+          <UserOutlined style={{ fontSize: "28px", marginLeft: "10px" }} />
           <Link to="/cart">
             <ShoppingOutlined style={{ fontSize: "28px", margin: "10px" }} />
           </Link>
           <Link to="/order">
             <FileTextOutlined
-              style={{ fontSize: "28px", marginRight: "15px" }}
+              style={{ fontSize: "28px", marginRight: "10px" }}
               href="/"
             />
           </Link>
-          <button onClick={userCtx.logout}>Logout</button>
+          <Button type="text" size="large" onClick={userCtx.logout}>
+            Logout
+          </Button>
         </p>
       </header>
     </>
