@@ -169,7 +169,7 @@ const updateOrderStatusAndInventory = async (req, res) => {
         FROM order_items a
         JOIN orders b ON a.order_id = b.uuid
         JOIN fruits c ON a.fruit_id = c.id
-        WHERE b.status ilike 'CONFIRMED'
+        WHERE b.status = 'CONFIRMED'
         GROUP BY 1,2
         `
       );
