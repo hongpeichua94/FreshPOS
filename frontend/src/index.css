@@ -20,3 +20,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.login-form-button {
+  width: 80%;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}

@@ -1,0 +1,15 @@
+.profile table {
+  width: 90%;
+}
+
+.profile tr,
+td,
+th {
+  height: 50px;
+  border: 1px solid rgb(240, 240, 240);
+  padding: 10px;
+}
+
+.tableHeader {
+  background-color: #fafafa;
+}

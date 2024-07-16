@@ -37,9 +37,12 @@ const NavBar = () => {
         <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
           <h5>The FreshFruits Store</h5>
         </Link>
+
         <p style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
           Hello, {accountDetails.first_name}!
-          <UserOutlined style={{ fontSize: "28px", marginLeft: "10px" }} />
+          <Link to="/profile">
+            <UserOutlined style={{ fontSize: "28px", marginLeft: "10px" }} />
+          </Link>
           <Link to="/cart">
             <ShoppingOutlined style={{ fontSize: "28px", margin: "10px" }} />
           </Link>

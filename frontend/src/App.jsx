@@ -3,11 +3,12 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import UserContext from "./context/user";
 
-import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import MyOrders from "./pages/MyOrders";
 import AllOrders from "./pages/AllOrders";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -84,7 +85,6 @@ function App() {
             isLoggedIn ? <Cart userId={userId} /> : <Navigate to="/login" />
           }
         />
-
         <Route
           path="/order"
           element={
@@ -97,6 +97,12 @@ function App() {
             ) : (
               <Navigate to="/login" />
             )
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? <Profile userId={userId} /> : <Navigate to="/login" />
           }
         />
 
