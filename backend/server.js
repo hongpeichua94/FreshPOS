@@ -20,7 +20,10 @@ const limiter = rateLimit({
 });
 
 const corsOptions = {
-  origin: ["https://freshpos-production.up.railway.app"],
+  origin: [
+    "https://fresh-pos.vercel.app",
+    "https://freshpos-production.up.railway.app",
+  ],
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"], // Specify allowed methods
   allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   optionsSuccessStatus: 200,
