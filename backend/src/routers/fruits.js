@@ -6,31 +6,19 @@ const {
   updateFruitDetails,
 } = require("../controllers/fruits");
 
-const {
-  validateIdInParam,
-  validateAddNewFruitData,
-} = require("../validators/fruits");
+// const {
+//   validateIdInParam,
+//   validateAddNewFruitData,
+// } = require("../validators/fruits");
 
-const { errorCheck } = require("../validators/errorCheck");
+// const { errorCheck } = require("../validators/errorCheck");
 
 const { authUser, authAdmin } = require("../middleware/auth");
 
 const router = express.Router();
 
 router.get("/fruits", getAllFruits);
-router.put(
-  "/fruit/add",
-  authAdmin,
-  validateAddNewFruitData,
-  errorCheck,
-  addNewFruit
-);
-router.patch(
-  "/fruit/:id",
-  authAdmin,
-  validateIdInParam,
-  errorCheck,
-  updateFruitDetails
-);
+router.put("/fruit/add", authAdmin, addNewFruit);
+router.patch("/fruit/:id", authAdmin, updateFruitDetails);
 
 module.exports = router;

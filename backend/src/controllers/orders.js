@@ -32,7 +32,7 @@ const getAllOrders = async (req, res) => {
     console.error(error.message);
     res
       .status(400)
-      .json({ status: "error", msg: "Error getting cart details" });
+      .json({ status: "error", msg: "Error getting order details" });
   }
 };
 
@@ -58,7 +58,7 @@ const getOrdersByUserId = async (req, res) => {
     console.error(error.message);
     res
       .status(400)
-      .json({ status: "error", msg: "Error getting cart details" });
+      .json({ status: "error", msg: "Error getting order details" });
   }
 };
 
@@ -177,7 +177,6 @@ const updateOrderStatusAndInventory = async (req, res) => {
       // Iterate over each row
       for (const row of soldResult.rows) {
         const fruitId = row.fruit_id;
-        // const fruitName = row.name;
         const totalSold = row.total_sold;
 
         // Update inventory table
@@ -207,7 +206,9 @@ const updateOrderStatusAndInventory = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "Error creating new order" });
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error updating order status" });
   }
 };
 

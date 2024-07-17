@@ -12,7 +12,7 @@ const {
 //   validateAddCartItemData,
 // } = require("../validators/cart");
 
-const { errorCheck } = require("../validators/errorCheck");
+// const { errorCheck } = require("../validators/errorCheck");
 
 const { authUser, authAdmin } = require("../middleware/auth");
 

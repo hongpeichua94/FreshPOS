@@ -12,7 +12,7 @@ const {
 //   validateOrderIdInBody,
 // } = require("../validators/orders");
 
-const { errorCheck } = require("../validators/errorCheck");
+// const { errorCheck } = require("../validators/errorCheck");
 
 const { authUser, authAdmin } = require("../middleware/auth");
 
