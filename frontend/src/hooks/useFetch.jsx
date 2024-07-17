@@ -4,6 +4,7 @@ const useFetch = () => {
 
     const res = await fetch(import.meta.env.VITE_BACKEND_URL + endpoint, {
       method,
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
