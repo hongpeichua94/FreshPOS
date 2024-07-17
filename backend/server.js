@@ -19,22 +19,9 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-const corsOptions = {
-  origin: [
-    "https://fresh-pos.vercel.app",
-    "https://freshpos-production.up.railway.app",
-  ],
-  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"], // Specify allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
-  optionsSuccessStatus: 200,
-};
-
 const app = express();
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
-
-// app.use(cors());
+app.use(cors());
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());

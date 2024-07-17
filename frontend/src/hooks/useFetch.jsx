@@ -2,9 +2,8 @@ const useFetch = () => {
   const fetchData = async (endpoint, method, body) => {
     const token = localStorage.getItem("accessToken");
 
-    const res = await fetch(import.meta.env.VITE_BACKEND_URL + endpoint, {
+    const res = await fetch(import.meta.env.VITE_SERVER + endpoint, {
       method,
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
