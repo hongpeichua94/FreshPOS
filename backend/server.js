@@ -19,9 +19,14 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
+const corsOptions = {
+  origin: "https://fresh-pos.vercel.app",
+  optionsSuccessStatus: 200,
+};
+
 const app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());
