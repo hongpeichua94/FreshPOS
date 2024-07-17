@@ -1,5 +1,3 @@
-const server = import.meta.env.VITE_BACKEND_URL;
-
 import React, { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
