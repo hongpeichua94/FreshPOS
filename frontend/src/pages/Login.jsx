@@ -2,11 +2,16 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
+// COMPONENTS
 import CreateAccountModal from "../components/CreateAccountModal";
 
+// ANT DESIGN
+import { Button, Form, Input, Typography } from "antd";
+
+// MODULE CSS
 import styles from "./Login.module.css";
 
-import { Button, Form, Input, Typography } from "antd";
+const { Title } = Typography;
 
 const Login = () => {
   const fetchData = useFetch();
@@ -15,8 +20,6 @@ const Login = () => {
   const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const { Title } = Typography;
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -40,10 +43,6 @@ const Login = () => {
     } else {
       alert(JSON.stringify(res.data));
     }
-  };
-
-  const handleRegisterUser = async () => {
-    alert("Clickd");
   };
 
   const createModal = () => {

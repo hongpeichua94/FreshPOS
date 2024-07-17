@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/user";
 
+// COMPONENTS
 import NavBar from "../components/NavBar";
 import UpdateProfileModal from "../components/UpdateProfileModal";
 
+// ANT DESIGN
 import { Layout, Button, Badge, theme } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
-const { Content } = Layout;
-
+// MODULE CSS
 import styles from "./Profile.module.css";
 
+// SCRIPTS
 import { getAccountInfo } from "../scripts/api";
+
+const { Content } = Layout;
 
 const Profile = () => {
   const userCtx = useContext(UserContext);

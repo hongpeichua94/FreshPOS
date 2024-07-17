@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
+// COMPONENTS
+import NavBar from "../components/NavBar";
+
+// ANT DESIGN
 import { Divider, Layout, Table, Space, theme, message } from "antd";
 
-const { Content } = Layout;
-
+// SCRIPTS
 import { getAllOrders } from "../scripts/api";
+
+const { Content } = Layout;
 
 const Orders = () => {
   const fetchData = useFetch();

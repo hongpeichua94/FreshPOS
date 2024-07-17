@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
+// COMPONENTS
+import NavBar from "../components/NavBar";
+
+// ANT DESIGN
 import {
   Button,
   Divider,
@@ -15,10 +18,10 @@ import {
   message,
 } from "antd";
 
+// SCRIPTS
 import { getCartDetail, getCartSummary } from "../scripts/api";
-import NavBar from "../components/NavBar";
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 
 const Cart = (props) => {
   const fetchData = useFetch();
@@ -167,11 +170,9 @@ const Cart = (props) => {
           <Divider orientation="center">My Shopping Cart</Divider>
           <Table
             columns={cartColumns}
-            // rowKey={(record) => record.uuid}
             dataSource={cartItems}
             pagination={tableParams.pagination}
             loading={loading}
-            // onChange={handleTableChange}
           />
         </div>
         <div

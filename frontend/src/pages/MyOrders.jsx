@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-
 import UserContext from "../context/user";
 
+// COMPONENTS
+import NavBar from "../components/NavBar";
+
+// ANT DESIGN
 import { Divider, Layout, Table, theme } from "antd";
 
-const { Content } = Layout;
-
+// SCRIPTS
 import { getUserOrders } from "../scripts/api";
+
+const { Content } = Layout;
 
 const Orders = () => {
   const userCtx = useContext(UserContext);

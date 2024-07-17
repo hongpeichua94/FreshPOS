@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/user";
 
+// COMPONENTS
 import NavBar from "../components/NavBar";
 import HeroBanner from "../components/HeroBanner";
 import FruitCard from "../components/FruitCard";
 
+// SCRIPTS
 import { getInventoryInfo } from "../scripts/api";
 
 const Home = () => {

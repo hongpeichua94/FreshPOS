@@ -1,12 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import UserContext from "../context/user";
 
-import styles from "./NavBar.module.css";
-
+// ANT DESIGN
 import { Button } from "antd";
-
 import {
   UserOutlined,
   ShoppingOutlined,
@@ -14,6 +11,10 @@ import {
   FileTextOutlined,
 } from "@ant-design/icons";
 
+// MODULE CSS
+import styles from "./NavBar.module.css";
+
+// SCRIPTS
 import { getAccountInfo } from "../scripts/api";
 
 const NavBar = () => {

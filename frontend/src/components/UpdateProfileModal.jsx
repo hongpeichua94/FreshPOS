@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import styles from "./Modal.module.css";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // ANT DESIGN
 import { Button } from "antd";
+
+// MODULE CSS
+import styles from "./Modal.module.css";
 
 const OverLay = (props) => {
   const fetchData = useFetch();
