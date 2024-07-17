@@ -32,6 +32,9 @@ const corsOptions = {
 const app = express();
 
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
+
+// app.use(cors());
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());
@@ -42,8 +45,6 @@ app.use("/api", users);
 app.use("/api", fruits);
 app.use("/api", cart);
 app.use("/api", orders);
-
-app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
