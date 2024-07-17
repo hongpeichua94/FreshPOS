@@ -20,7 +20,10 @@ const limiter = rateLimit({
 });
 
 const corsOptions = {
-  origin: "https://fresh-pos.vercel.app",
+  origin: [
+    "https://fresh-pos.vercel.app",
+    "https://freshpos-production.up.railway.app",
+  ],
   optionsSuccessStatus: 200,
 };
 
