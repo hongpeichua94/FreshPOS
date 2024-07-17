@@ -19,19 +19,8 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-// const corsOptions = {
-//   origin: [
-//     "https://fresh-pos.vercel.app",
-//     "https://freshpos-production.up.railway.app",
-//   ],
-//   optionsSuccessStatus: 200,
-// };
-
 const corsOptions = {
-  origin: [
-    "https://fresh-pos.vercel.app",
-    "https://freshpos-production.up.railway.app",
-  ],
+  origin: ["https://freshpos-production.up.railway.app"],
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"], // Specify allowed methods
   allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   optionsSuccessStatus: 200,
