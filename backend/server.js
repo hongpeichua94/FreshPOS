@@ -19,11 +19,21 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
+// const corsOptions = {
+//   origin: [
+//     "https://fresh-pos.vercel.app",
+//     "https://freshpos-production.up.railway.app",
+//   ],
+//   optionsSuccessStatus: 200,
+// };
+
 const corsOptions = {
   origin: [
     "https://fresh-pos.vercel.app",
     "https://freshpos-production.up.railway.app",
   ],
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"], // Specify allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   optionsSuccessStatus: 200,
 };
 
@@ -40,6 +50,8 @@ app.use("/api", users);
 app.use("/api", fruits);
 app.use("/api", cart);
 app.use("/api", orders);
+
+app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
