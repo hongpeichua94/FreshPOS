@@ -33,7 +33,7 @@ app.use("/api", fruits);
 app.use("/api", cart);
 app.use("/api", orders);
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, "0.0.0.0", () => {
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

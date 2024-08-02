@@ -36,7 +36,7 @@ const Orders = () => {
         const formattedDate = `${year}-${month}-${day}`;
         return formattedDate;
       },
-      sorter: true,
+      // sorter: true,
       sorter: (a, b) => {
         const dateA = new Date(a.created_at);
         const dateB = new Date(b.created_at);
