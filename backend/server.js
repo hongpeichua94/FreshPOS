@@ -12,11 +12,12 @@ const fruits = require("./src/routers/fruits");
 const cart = require("./src/routers/cart");
 const orders = require("./src/routers/orders");
 
+// To limit number of API calls
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  standardHeaders: true,
-  legacyHeaders: false,
+  windowMs: 15 * 60 * 1000, // 15 minutues
+  max: 100, // each IP can make up to 100 requests per 'window' (ie. 15m)
+  standardHeaders: true, // add the `RateLimit-*` headers to the response
+  legacyHeaders: false, // remove the `X-RateLimit-*` headers from the response
 });
 
 const app = express();
