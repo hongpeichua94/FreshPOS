@@ -51,7 +51,7 @@ const FruitCard = (props) => {
       ]}
     >
       <Meta
-        title={`${props.name} ($${props.price} /qty)`}
+        title={`${props.name} ($${props.price.toFixed(2)} /qty)`}
         description={props.description}
       />
       <br></br>

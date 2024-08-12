@@ -30,12 +30,22 @@ const Profile = () => {
       console.error("Error fetching user deatils :", error);
     }
   };
+
   useEffect(() => {
     if (userCtx.userId) {
       fetchUserDetails(userCtx.userId, userCtx.accessToken);
     }
   }, [userCtx.userId, userCtx.accessToken]);
 
+  // Conditional rendering and date formatting
+  let formattedDate = "";
+  if (userDetails) {
+    const createdDate = new Date(userDetails.created_at);
+    const year = createdDate.getFullYear();
+    const month = String(createdDate.getMonth() + 1).padStart(2, "0");
+    const day = String(createdDate.getDate()).padStart(2, "0");
+    formattedDate = `${year}-${month}-${day}`;
+  }
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -109,7 +119,7 @@ const Profile = () => {
                         </tr>
                         <tr>
                           <th>Member since</th>
-                          <td>{userDetails.created_at}</td>
+                          <td>{formattedDate}</td>
                         </tr>
                         <tr>
                           <th>Status</th>

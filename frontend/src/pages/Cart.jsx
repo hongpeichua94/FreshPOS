@@ -54,9 +54,10 @@ const Cart = (props) => {
       width: "15%",
     },
     {
-      title: "Subtotal ($)",
+      title: "Subtotal",
       dataIndex: "subtotal",
       width: "15%",
+      render: (text) => `$${parseFloat(text).toFixed(2)}`,
     },
     {
       title: "Action",
@@ -192,8 +193,8 @@ const Cart = (props) => {
             renderItem={(item, index) => (
               <List.Item>
                 <List.Item.Meta
-                  title={`Total (inc. tax): $${item.total}`}
-                  description={`Subtotal: $${item.subtotal}`}
+                  title={`Total (inc. tax): $${item.total.toFixed(2)}`}
+                  description={`Subtotal: $${item.subtotal.toFixed(2)}`}
                 />
               </List.Item>
             )}

@@ -64,7 +64,7 @@ const Orders = () => {
     {
       title: "Total Amount",
       dataIndex: "total",
-      render: (text) => `$${text}`,
+      render: (text) => `$${parseFloat(text).toFixed(2)}`,
       width: "15%",
     },
     {
