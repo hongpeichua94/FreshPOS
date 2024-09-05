@@ -1,10 +1,24 @@
 .herobanner {
-  background-image: url(../assets/herobanner.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.3);
   color: #ffffff;
   text-align: center;
   position: relative;
+  padding: 5em;
+  height: 50vh;
+}
+
+.herobanner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url(../assets/herobanner.jpg);
+  background-size: cover;
+  z-index: -1;
+  color: #ffffff;
+  text-align: center;
+
   padding: 5em;
   height: 50vh;
 }
