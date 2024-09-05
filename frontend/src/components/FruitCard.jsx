@@ -37,6 +37,8 @@ const FruitCard = (props) => {
       style={{
         width: 300,
         margin: "30px",
+        borderColor: "#000",
+        borderWidth: "2px",
       }}
       cover={<img src={props.image_url} style={{ padding: "30px" }} />}
       actions={[
