@@ -12,17 +12,3 @@ body {
   margin: 0;
   background-color: whitesmoke;
 }
-
-.centered {
-  margin: 3rem auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-form-button {
-  width: 80%;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}

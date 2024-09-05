@@ -58,9 +58,7 @@ const Login = () => {
       )}
 
       <div className={styles.login}>
-        <Title style={{ textAlign: "center" }}>
-          Welcome to FreshFruits (Beta)
-        </Title>
+        <Title style={{ textAlign: "center" }}>Welcome to FreshFruits</Title>
 
         <div className={styles.loginform}>
           <Form
@@ -111,20 +109,22 @@ const Login = () => {
               <Input.Password />
             </Form.Item>
             <br />
-
             <Form.Item>
               <Button
+                className={styles.loginButton}
                 type="primary"
                 htmlType="submit"
-                className="login-form-button"
                 onClick={handleLogin}
               >
-                Login
-              </Button>{" "}
-              <br></br>
-              Or
-              <Button type="link" onClick={createModal}>
-                register now!
+                Log in
+              </Button>
+              <Button
+                className={styles.signupButton}
+                type="seconday"
+                htmlType="submit"
+                onClick={createModal}
+              >
+                No account? Sign up for free
               </Button>
             </Form.Item>
           </Form>
