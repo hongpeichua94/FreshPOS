@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import UserContext from "../context/user";
 
 // ANT DESIGN
-import { Button } from "antd";
+import { Button, Badge } from "antd";
 import {
   UserOutlined,
   ShoppingOutlined,
-  CreditCardOutlined,
   FileTextOutlined,
 } from "@ant-design/icons";
 
@@ -15,20 +14,31 @@ import {
 import styles from "./NavBar.module.css";
 
 // SCRIPTS
-import { getAccountInfo } from "../scripts/api";
+import { getAccountInfo, getCartSummary } from "../scripts/api";
 
 const NavBar = () => {
   const userCtx = useContext(UserContext);
   const [accountDetails, setAccountDetails] = useState({});
+  const [cartQuantity, setCartQuantity] = useState([]);
 
   const fetchAccountData = async (userId, accessToken) => {
     const accountInfo = await getAccountInfo(userId, accessToken);
     setAccountDetails(accountInfo);
   };
 
+  const fetchCartQuantity = async (userId, accessToken) => {
+    const data = await getCartSummary(userId, accessToken);
+
+    const quantity =
+      Array.isArray(data) && data.length > 0 ? data[0].quantity : 0;
+
+    setCartQuantity(quantity);
+  };
+
   useEffect(() => {
     if (userCtx.userId) {
       fetchAccountData(userCtx.userId, userCtx.accessToken);
+      fetchCartQuantity(userCtx.userId, userCtx.accessToken);
     }
   }, [userCtx.userId, userCtx.accessToken]);
 
@@ -45,11 +55,19 @@ const NavBar = () => {
             <UserOutlined style={{ fontSize: "28px", marginLeft: "10px" }} />
           </Link>
           <Link to="/cart">
-            <ShoppingOutlined style={{ fontSize: "28px", margin: "10px" }} />
+            <Badge count={cartQuantity}>
+              <ShoppingOutlined
+                style={{ fontSize: "28px", marginLeft: "10px" }}
+              />{" "}
+            </Badge>
           </Link>
           <Link to="/order">
             <FileTextOutlined
-              style={{ fontSize: "28px", marginRight: "10px" }}
+              style={{
+                fontSize: "28px",
+                marginRight: "10px",
+                marginLeft: " 15px",
+              }}
               href="/"
             />
           </Link>

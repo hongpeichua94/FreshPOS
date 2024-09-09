@@ -193,8 +193,8 @@ const Cart = (props) => {
             renderItem={(item, index) => (
               <List.Item>
                 <List.Item.Meta
-                  title={`Total (inc. tax): $${item.total.toFixed(2)}`}
-                  description={`Subtotal: $${item.subtotal.toFixed(2)}`}
+                  title={`Total (inc. tax): $${(item.total ?? 0).toFixed(2)}`}
+                  description={`Subtotal: $${(item.subtotal ?? 0).toFixed(2)}`}
                 />
               </List.Item>
             )}

@@ -81,17 +81,18 @@ const addCartItem = async (req, res) => {
 
     // Calculate the updated cart subtotal
     const cartItemsResult = await db.query(
-      "SELECT SUM(subtotal) as cart_total FROM cart_items WHERE cart_id = $1",
+      "SELECT SUM(subtotal) as cart_total, SUM(quantity) as cart_quantity FROM cart_items WHERE cart_id = $1",
       [cartId]
     );
 
+    const cartQuantity = cartItemsResult.rows[0].cart_quantity;
     const cartSubtotal = cartItemsResult.rows[0].cart_total;
     const cartTotal = 1.09 * cartSubtotal;
 
     // Update the cart subtotal in the cart table
     await db.query(
-      "UPDATE cart SET subtotal = $1, total = $2 WHERE uuid = $3",
-      [cartSubtotal, cartTotal, cartId]
+      "UPDATE cart SET subtotal = $1, total = $2, quantity = $3 WHERE uuid = $4",
+      [cartSubtotal, cartTotal, cartQuantity, cartId]
     );
 
     res.status(200).json({ status: "success", msg: "Item added to cart" });
@@ -115,17 +116,18 @@ const deleteCartItem = async (req, res) => {
 
     // Calculate the updated cart subtotal
     const cartItemsResult = await db.query(
-      "SELECT SUM(subtotal) as cart_total FROM cart_items WHERE cart_id = $1",
+      "SELECT SUM(subtotal) as cart_total, SUM(quantity) as cart_quantity FROM cart_items WHERE cart_id = $1",
       [cartId]
     );
 
+    const newCartQuantity = cartItemsResult.rows[0].cart_quantity;
     const newCartSubtotal = cartItemsResult.rows[0].cart_total;
     const newCartTotal = 1.09 * newCartSubtotal;
 
     // Update the cart subtotal in the cart table
     await db.query(
-      "UPDATE cart SET subtotal = $1, total = $2 WHERE uuid = $3",
-      [newCartSubtotal, newCartTotal, cartId]
+      "UPDATE cart SET subtotal = $1, total = $2, quantity = $3 WHERE uuid = $4",
+      [newCartSubtotal, newCartTotal, newCartQuantity, cartId]
     );
 
     res.json({ status: "ok", msg: "Item removed from cart" });
