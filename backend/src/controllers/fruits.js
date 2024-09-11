@@ -11,11 +11,29 @@ const getAllFruits = async (req, res) => {
   }
 };
 
+const getFruitById = async (req, res) => {
+  try {
+    const fruit = await db.query("SELECT * FROM fruits WHERE id = $1", [
+      req.params.id,
+    ]);
+    res.json(fruit.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting fruit" });
+  }
+};
+
 const addNewFruit = async (req, res) => {
   try {
     await db.query(
-      `INSERT INTO fruits (name,description,price,quantity,created_at,updated_at) VALUES ($1,$2,$3,$4,NOW(),NOW())`,
-      [req.body.name, req.body.description, req.body.price, req.body.quantity]
+      `INSERT INTO fruits (name,description,image_url,price,quantity,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,NOW(),NOW())`,
+      [
+        req.body.name,
+        req.body.description,
+        req.body.image_url,
+        req.body.price,
+        req.body.quantity,
+      ]
     );
     res.json({ status: "ok", msg: "New fruit added successfully" });
   } catch (error) {
@@ -84,6 +102,7 @@ const updateFruitDetails = async (req, res) => {
 
 module.exports = {
   getAllFruits,
+  getFruitById,
   addNewFruit,
   updateFruitDetails,
 };

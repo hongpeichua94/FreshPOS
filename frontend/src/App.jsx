@@ -9,6 +9,7 @@ import Cart from "./pages/Cart";
 import MyOrders from "./pages/MyOrders";
 import AllOrders from "./pages/AllOrders";
 import Profile from "./pages/Profile";
+import Inventory from "./pages/Inventory";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -105,7 +106,16 @@ function App() {
             isLoggedIn ? <Profile userId={userId} /> : <Navigate to="/login" />
           }
         />
-
+        <Route
+          path="/inventory"
+          element={
+            isLoggedIn && role == "ADMIN" ? (
+              <Inventory />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContext.Provider>

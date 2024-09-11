@@ -4,10 +4,29 @@ const fetchData = useFetch();
 
 export const getInventoryInfo = async (accessToken) => {
   try {
-    const res = await fetchData(`/api/fruits`, "GET", undefined, accessToken);
+    const res = await fetchData(`/api/fruit`, "GET", undefined, accessToken);
 
     if (res.ok) {
       return res.data;
+    } else {
+      console.error(res.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getFruitDetail = async (id, accessToken) => {
+  try {
+    const res = await fetchData(
+      `/api/fruit/${id}`,
+      "GET",
+      undefined,
+      accessToken
+    );
+
+    if (res.ok) {
+      return res.data[0];
     } else {
       console.error(res.data);
     }

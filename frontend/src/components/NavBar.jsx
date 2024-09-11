@@ -8,6 +8,7 @@ import {
   UserOutlined,
   ShoppingOutlined,
   FileTextOutlined,
+  UploadOutlined,
 } from "@ant-design/icons";
 
 // MODULE CSS
@@ -71,6 +72,13 @@ const NavBar = () => {
               href="/"
             />
           </Link>
+          {userCtx.role == "ADMIN" && (
+            <Link to="/inventory">
+              <UploadOutlined
+                style={{ fontSize: "28px", marginLeft: "10px" }}
+              />{" "}
+            </Link>
+          )}
           <Button type="text" size="large" onClick={userCtx.logout}>
             Logout
           </Button>
