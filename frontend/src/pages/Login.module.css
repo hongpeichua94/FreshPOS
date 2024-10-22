@@ -1,21 +1,8 @@
 .login {
-  background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
   position: relative;
   padding: 5em;
   height: 100vh;
-}
-
-.login::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(../assets/herobanner.jpg);
-  background-size: cover;
-  z-index: -1; /* Ensures it’s behind the content */
 }
 
 .login h1 {
@@ -26,25 +13,16 @@
   margin-top: 50px;
 }
 
-.loginform {
-  display: flex;
+.form {
   position: absolute;
-  background-color: rgba(255, 255, 255);
   justify-content: center;
   align-items: center;
-  width: 30vw;
-  border-radius: 10px;
-  padding: 30px;
-  margin-top: 10px;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.loginButton,
-.signupButton {
-  width: 100%;
+.button {
+  margin-right: 10px;
   margin-bottom: 10px;
-  top: 50%;
-  left: 25%;
 }

@@ -2,22 +2,16 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
-// COMPONENTS
-import CreateAccountModal from "../components/CreateAccountModal";
-
 // ANT DESIGN
 import { Button, Form, Input, Typography } from "antd";
 
 // MODULE CSS
 import styles from "./Login.module.css";
 
-const { Title } = Typography;
-
 const Login = () => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
 
-  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -38,99 +32,72 @@ const Login = () => {
       localStorage.setItem("accessToken", res.data.access);
       localStorage.setItem("userId", res.data.user_id);
       localStorage.setItem("role", res.data.role);
-      // const decoded = jwtDecode(res.data.access);
-      // userCtx.setRole(decoded.role);
     } else {
       alert(JSON.stringify(res.data));
     }
   };
 
-  const createModal = () => {
-    setShowCreateAccountModal(true);
-  };
-
   return (
-    <>
-      {showCreateAccountModal && (
-        <CreateAccountModal
-          setShowCreateAccountModal={setShowCreateAccountModal}
-        ></CreateAccountModal>
-      )}
+    <div className={styles.login}>
+      <h2 style={{ textAlign: "center" }}>Sign in to your account</h2>
 
-      <div className={styles.login}>
-        <Title style={{ textAlign: "center" }}>Welcome to FreshFruits</Title>
-
-        <div className={styles.loginform}>
-          <Form
-            name="basic"
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            style={{
-              maxWidth: 600,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
+      <div className={styles.form}>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 8,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please input your email!",
+              },
+            ]}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           >
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            >
-              <Input />
-            </Form.Item>
+            <Input />
+          </Form.Item>
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          >
+            <Input.Password />
+          </Form.Item>
+          <br />
+          <Form.Item>
+            <Button
+              className={styles.button}
+              type="primary"
+              htmlType="submit"
+              onClick={handleLogin}
             >
-              <Input.Password />
-            </Form.Item>
-            <br />
-            <Form.Item>
-              <Button
-                className={styles.loginButton}
-                type="primary"
-                htmlType="submit"
-                onClick={handleLogin}
-              >
-                Log in
-              </Button>
-              <Button
-                className={styles.signupButton}
-                type="seconday"
-                htmlType="submit"
-                onClick={createModal}
-              >
-                No account? Sign up for free
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+              Log in
+            </Button>
+            No account? <a href="/register">Register now</a>
+          </Form.Item>
+        </Form>
       </div>
-    </>
+    </div>
   );
 };
 export default Login;
