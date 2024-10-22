@@ -5,15 +5,19 @@ import UserContext from "../context/user";
 // ANT DESIGN
 import { Card, Button, message } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const { Meta } = Card;
 
 const FruitCard = (props) => {
-  const fetchData = useFetch();
+  const navigate = useNavigate();
   const userCtx = useContext(UserContext);
+  const fetchData = useFetch();
 
   const handleAddToCart = async () => {
-    try {
+    if (!userCtx.userId) {
+      navigate("/login");
+    } else {
       console.log("User Token:", userCtx.accessToken);
       const res = await fetchData(
         "/api/cart",
@@ -27,8 +31,6 @@ const FruitCard = (props) => {
       } else {
         console.error("Error adding item to cart:", res.data);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
