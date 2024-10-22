@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import UserContext from "./context/user";
 
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
@@ -65,11 +66,17 @@ function App() {
   return (
     <UserContext.Provider value={userContextValue}>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/" element={<Home />} />
+        {/* Logged out */}
+        <Route
+          path="/register"
+          element={isLoggedIn ? <Navigate to="/" /> : <Register />}
+        />
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/home" /> : <Login />}
+          element={isLoggedIn ? <Navigate to="/" /> : <Login />}
         />
+
         <Route
           path="/home"
           element={
