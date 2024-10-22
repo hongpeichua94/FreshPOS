@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import UserContext from "../context/user";
 
 // ANT DESIGN
@@ -14,74 +14,68 @@ import {
 // MODULE CSS
 import styles from "./NavBar.module.css";
 
-// SCRIPTS
-import { getAccountInfo, getCartSummary } from "../scripts/api";
-
-const NavBar = () => {
+const NavBar = (props) => {
   const userCtx = useContext(UserContext);
-  const [accountDetails, setAccountDetails] = useState({});
-  const [cartQuantity, setCartQuantity] = useState([]);
-
-  const fetchAccountData = async (userId, accessToken) => {
-    const accountInfo = await getAccountInfo(userId, accessToken);
-    setAccountDetails(accountInfo);
-  };
-
-  const fetchCartQuantity = async (userId, accessToken) => {
-    const data = await getCartSummary(userId, accessToken);
-
-    const quantity =
-      Array.isArray(data) && data.length > 0 ? data[0].quantity : 0;
-
-    setCartQuantity(quantity);
-  };
-
-  useEffect(() => {
-    if (userCtx.userId) {
-      fetchAccountData(userCtx.userId, userCtx.accessToken);
-      fetchCartQuantity(userCtx.userId, userCtx.accessToken);
-    }
-  }, [userCtx.userId, userCtx.accessToken]);
 
   return (
     <>
       <header className={styles.navbar}>
-        <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
+        <NavLink to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <h5>The FreshFruits Store</h5>
-        </Link>
+        </NavLink>
 
         <p style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-          Hello, {accountDetails.first_name}!
-          <Link to="/profile">
-            <UserOutlined style={{ fontSize: "28px", marginLeft: "10px" }} />
-          </Link>
-          <Link to="/cart">
-            <Badge count={cartQuantity}>
-              <ShoppingOutlined
-                style={{ fontSize: "28px", marginLeft: "10px" }}
-              />{" "}
-            </Badge>
-          </Link>
-          <Link to="/order">
-            <FileTextOutlined
-              style={{
-                fontSize: "28px",
-                marginRight: "10px",
-                marginLeft: " 15px",
-              }}
-              href="/"
-            />
-          </Link>
-          {userCtx.role == "ADMIN" && (
-            <Link to="/inventory">
-              <UploadOutlined
-                style={{ fontSize: "28px", marginLeft: "10px" }}
-              />{" "}
-            </Link>
+          {!userCtx.userId ? (
+            // Show login and sign up if user is null
+            <div>
+              <NavLink to="/login">
+                <Button type="text" size="large">
+                  Login
+                </Button>
+              </NavLink>
+
+              <NavLink to="/register">
+                <Button type="text" size="large">
+                  Sign Up
+                </Button>
+              </NavLink>
+            </div>
+          ) : (
+            <>
+              Hello, {props.accountDetails.first_name}!
+              <NavLink to="/profile">
+                <UserOutlined
+                  style={{ fontSize: "28px", marginLeft: "10px" }}
+                />
+              </NavLink>
+              <NavLink to="/cart">
+                <Badge count={props.cartQuantity}>
+                  <ShoppingOutlined
+                    style={{ fontSize: "28px", marginLeft: "10px" }}
+                  />{" "}
+                </Badge>
+              </NavLink>
+              <NavLink to="/order">
+                <FileTextOutlined
+                  style={{
+                    fontSize: "28px",
+                    marginRight: "10px",
+                    marginLeft: "15px",
+                  }}
+                />
+              </NavLink>
+              {userCtx.role == "ADMIN" && (
+                <NavLink to="/inventory">
+                  <UploadOutlined
+                    style={{ fontSize: "28px", marginLeft: "10px" }}
+                  />{" "}
+                </NavLink>
+              )}
+              <Button type="text" size="large" onClick={userCtx.logout}>
+                Logout
+              </Button>
+            </>
           )}
-          <Button type="text" size="large" onClick={userCtx.logout}>
-            Logout
-          </Button>
         </p>
       </header>
     </>

@@ -16,33 +16,57 @@ import Profile from "./pages/Profile";
 import Inventory from "./pages/Inventory";
 import NotFound from "./pages/NotFound";
 
+// SCRIPTS
+import { getAccountInfo, getCartSummary } from "./scripts/api";
+
 function App() {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken") || ""
   );
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
   const [role, setRole] = useState(localStorage.getItem("role") || "");
+
+  const [accountDetails, setAccountDetails] = useState({});
+  const [cartQuantity, setCartQuantity] = useState([]);
+
+  const fetchAccountData = async (userId, accessToken) => {
+    const accountInfo = await getAccountInfo(userId, accessToken);
+    setAccountDetails(accountInfo);
+  };
+
+  const fetchCartQuantity = async (userId, accessToken) => {
+    const data = await getCartSummary(userId, accessToken);
+
+    const quantity =
+      Array.isArray(data) && data.length > 0 ? data[0].quantity : 0;
+
+    setCartQuantity(quantity);
+  };
+
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    setAccessToken("");
+    setUserId("");
+    setRole("");
+    localStorage.clear();
+    navigate("/");
+  };
+
+  // Load user data from localStorage when the app first loads because app state reset upon refresh
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedUserId = localStorage.getItem("userId");
     const storedRole = localStorage.getItem("role");
 
     if (storedAccessToken) setAccessToken(storedAccessToken);
-    if (storedUserId) setUserId(storedUserId);
+    if (storedUserId) {
+      setUserId(storedUserId);
+      fetchAccountData(storedUserId);
+      fetchCartQuantity(storedUserId);
+    }
     if (storedRole) setRole(storedRole);
-  }, []);
-
-  const handleLogout = () => {
-    setAccessToken("");
-    setUserId("");
-    setRole("");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("role");
-    navigate("/login");
-  };
+  }, [userId, accessToken]);
 
   const userContextValue = {
     accessToken,
@@ -60,7 +84,7 @@ function App() {
       setRole(role);
       localStorage.setItem("role", role);
     },
-    logout: handleLogout, // Add logout function to context value
+    logout: handleLogout,
   };
 
   // converting accessToken value to a boolean to see if user is logged in
@@ -68,7 +92,10 @@ function App() {
 
   return (
     <UserContext.Provider value={userContextValue}>
-      <NavBar></NavBar>
+      <NavBar
+        accountDetails={accountDetails}
+        cartQuantity={cartQuantity}
+      ></NavBar>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* Logged out */}
@@ -80,17 +107,8 @@ function App() {
           path="/login"
           element={isLoggedIn ? <Navigate to="/" /> : <Login />}
         />
+        {/* Logged out */}
 
-        <Route
-          path="/home"
-          element={
-            isLoggedIn ? (
-              <Home userId={userId} onLogout={handleLogout} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
         <Route
           path="/cart"
           element={
