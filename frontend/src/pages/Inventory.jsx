@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import UserContext from "../context/user";
 
 // COMPONENTS
-import NavBar from "../components/NavBar";
 import UpdateInventoryModal from "../components/UpdateInventoryModal";
 import AddInventoryModal from "../components/AddInventoryModal";
 
@@ -184,7 +183,6 @@ const Inventory = () => {
           fetchInventoryData={fetchInventoryData}
         />
       )}
-      <NavBar></NavBar>
 
       <Content
         style={{

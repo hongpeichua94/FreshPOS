@@ -2,9 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
-// COMPONENTS
-import NavBar from "../components/NavBar";
-
 // ANT DESIGN
 import { Divider, Layout, Table, Space, theme, message } from "antd";
 
@@ -177,7 +174,6 @@ const Orders = () => {
 
   return (
     <div>
-      <NavBar></NavBar>
       <Content
         style={{
           margin: "10px 16px",

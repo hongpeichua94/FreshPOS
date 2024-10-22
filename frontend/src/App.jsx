@@ -3,6 +3,9 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import UserContext from "./context/user";
 
+// COMPONENTS
+import NavBar from "./components/NavBar";
+
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -65,6 +68,7 @@ function App() {
 
   return (
     <UserContext.Provider value={userContextValue}>
+      <NavBar></NavBar>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* Logged out */}

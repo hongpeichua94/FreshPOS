@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/user";
 
-// COMPONENTS
-import NavBar from "../components/NavBar";
-
 // ANT DESIGN
 import { Divider, Layout, Table, theme } from "antd";
 
@@ -135,7 +132,6 @@ const Orders = () => {
 
   return (
     <div>
-      <NavBar></NavBar>
       <Content
         style={{
           margin: "10px 16px",

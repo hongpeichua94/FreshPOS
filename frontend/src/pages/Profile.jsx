@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/user";
 
 // COMPONENTS
-import NavBar from "../components/NavBar";
 import UpdateProfileModal from "../components/UpdateProfileModal";
 
 // ANT DESIGN
@@ -65,7 +64,6 @@ const Profile = () => {
         />
       )}
       <div className={styles.profile}>
-        <NavBar></NavBar>
         <Layout style={{ minHeight: "100vh" }}>
           <Layout style={{ height: "100vh", overflow: "auto" }}>
             <div className="details">

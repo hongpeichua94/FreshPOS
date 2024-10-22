@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
-// COMPONENTS
-import NavBar from "../components/NavBar";
-
 // ANT DESIGN
 import {
   Button,
@@ -151,7 +148,6 @@ const Cart = (props) => {
 
   return (
     <div>
-      <NavBar></NavBar>
       <Content
         style={{
           margin: "10px 16px",
