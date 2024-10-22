@@ -8,7 +8,7 @@ import FruitCard from "../components/FruitCard";
 // SCRIPTS
 import { getInventoryInfo } from "../scripts/api";
 
-const Home = () => {
+const Home = (props) => {
   const userCtx = useContext(UserContext);
   const [overview, setOverview] = useState([]);
 
@@ -41,7 +41,7 @@ const Home = () => {
               price={item.price}
               image_url={item.image_url}
               stocks={item.quantity - item.sold}
-              fetchInventoryInfo={fetchInventoryInfo}
+              fetchCartSummary={props.fetchCartSummary}
             ></FruitCard>
           );
         })}

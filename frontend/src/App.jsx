@@ -28,18 +28,19 @@ function App() {
 
   const [accountDetails, setAccountDetails] = useState({});
   const [cartQuantity, setCartQuantity] = useState([]);
+  const [cartSummary, setCartSummary] = useState([]);
 
   const fetchAccountData = async (userId, accessToken) => {
     const accountInfo = await getAccountInfo(userId, accessToken);
     setAccountDetails(accountInfo);
   };
 
-  const fetchCartQuantity = async (userId, accessToken) => {
+  const fetchCartSummary = async (userId, accessToken) => {
     const data = await getCartSummary(userId, accessToken);
+    setCartSummary(data);
 
     const quantity =
       Array.isArray(data) && data.length > 0 ? data[0].quantity : 0;
-
     setCartQuantity(quantity);
   };
 
@@ -63,7 +64,7 @@ function App() {
     if (storedUserId) {
       setUserId(storedUserId);
       fetchAccountData(storedUserId);
-      fetchCartQuantity(storedUserId);
+      fetchCartSummary(storedUserId);
     }
     if (storedRole) setRole(storedRole);
   }, [userId, accessToken]);
@@ -97,7 +98,10 @@ function App() {
         cartQuantity={cartQuantity}
       ></NavBar>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Home fetchCartSummary={fetchCartSummary} />}
+        />
         {/* Logged out */}
         <Route
           path="/register"
@@ -112,7 +116,15 @@ function App() {
         <Route
           path="/cart"
           element={
-            isLoggedIn ? <Cart userId={userId} /> : <Navigate to="/login" />
+            isLoggedIn ? (
+              <Cart
+                userId={userId}
+                cartSummary={cartSummary}
+                fetchCartSummary={fetchCartSummary}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route

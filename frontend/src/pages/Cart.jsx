@@ -25,7 +25,6 @@ const Cart = (props) => {
   const userCtx = useContext(UserContext);
 
   const [cartItems, setCartItems] = useState([]);
-  const [cartSummary, setCartSummary] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -101,16 +100,11 @@ const Cart = (props) => {
     if (res.ok) {
       message.success("Item removed from cart");
       await fetchCartDetail(userCtx.userId, userCtx.accessToken);
-      await fetchCartSummary(userCtx.userId, userCtx.accessToken);
+      await props.fetchCartSummary(userCtx.userId, userCtx.accessToken);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
-  };
-
-  const fetchCartSummary = async (userId, accessToken) => {
-    const data = await getCartSummary(userId, accessToken);
-    setCartSummary(data);
   };
 
   const submitOrder = async () => {
@@ -138,7 +132,7 @@ const Cart = (props) => {
   useEffect(() => {
     if (userCtx.userId) {
       fetchCartDetail(userCtx.userId, userCtx.accessToken);
-      fetchCartSummary(userCtx.userId, userCtx.accessToken);
+      props.fetchCartSummary(userCtx.userId, userCtx.accessToken);
     }
   }, [userCtx.userId, userCtx.accessToken]);
 
@@ -185,7 +179,7 @@ const Cart = (props) => {
           <List
             className="cart-summary"
             itemLayout="horizontal"
-            dataSource={cartSummary}
+            dataSource={props.cartSummary}
             renderItem={(item, index) => (
               <List.Item>
                 <List.Item.Meta

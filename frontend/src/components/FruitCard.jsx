@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
@@ -18,7 +18,6 @@ const FruitCard = (props) => {
     if (!userCtx.userId) {
       navigate("/login");
     } else {
-      console.log("User Token:", userCtx.accessToken);
       const res = await fetchData(
         "/api/cart",
         "PUT",
@@ -28,11 +27,18 @@ const FruitCard = (props) => {
       );
       if (res.ok) {
         message.success(`Item added to cart!`);
+        await props.fetchCartSummary(userCtx.userId, userCtx.accessToken); // Fetch the cart summary after adding the item
       } else {
         console.error("Error adding item to cart:", res.data);
       }
     }
   };
+
+  useEffect(() => {
+    if (userCtx.userId) {
+      props.fetchCartSummary(userCtx.userId, userCtx.accessToken);
+    }
+  }, [userCtx.userId, userCtx.accessToken]);
 
   return (
     <Card
