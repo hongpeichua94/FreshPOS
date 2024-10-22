@@ -102,6 +102,63 @@ const addCartItem = async (req, res) => {
   }
 };
 
+// Update cart item quantity
+const updateCartItem = async (req, res) => {
+  try {
+    // Retrieve cart item
+    const cartItemResult = await db.query(
+      "SELECT * FROM cart_items WHERE uuid = $1",
+      [req.body.uuid]
+    );
+
+    const cartItem = cartItemResult.rows[0];
+
+    // Update the quantity and subtotal
+    let finalQuantity = cartItem.quantity;
+
+    if ("quantity" in req.body) {
+      // Increment the quantity by the number passed in the request body
+      finalQuantity = req.body.quantity;
+    }
+
+    // Retrieve fruit details for subtotal calculation
+    const fruitResult = await db.query("SELECT * FROM fruits WHERE id = $1", [
+      cartItem.fruit_id,
+    ]);
+
+    const fruitPrice = fruitResult.rows[0].price;
+    const updatedSubtotal = finalQuantity * fruitPrice;
+
+    // Update the cart item with the new quantity and subtotal
+    await db.query(
+      "UPDATE cart_items SET quantity = $1, subtotal = $2 WHERE uuid = $3",
+      [finalQuantity, updatedSubtotal, req.body.uuid]
+    );
+
+    // Calculate the updated cart quantity and subtotal
+    const cartId = cartItem.cart_id;
+
+    const updatedCartItemResult = await db.query(
+      "SELECT SUM(subtotal) as cart_total, SUM(quantity) as cart_quantity FROM cart_items WHERE cart_id = $1",
+      [cartId]
+    );
+
+    const newCartQuantity = updatedCartItemResult.rows[0].cart_quantity;
+    const newCartSubtotal = updatedCartItemResult.rows[0].cart_total;
+    const newCartTotal = 1.09 * newCartSubtotal;
+
+    // Update the cart with the new quantity and subtotal
+    await db.query(
+      "UPDATE cart SET subtotal = $1, total= $2, quantity =$3 WHERE uuid =$4",
+      [newCartSubtotal, newCartTotal, newCartQuantity, cartId]
+    );
+    res.json({ status: "ok", msg: "Item quantity updated" });
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "Error updating cart" });
+  }
+};
+
 // Delete cart item must update cart summary also
 const deleteCartItem = async (req, res) => {
   try {
@@ -143,5 +200,6 @@ module.exports = {
   getCartByUserId,
   getCartItemsByUserId,
   addCartItem,
+  updateCartItem,
   deleteCartItem,
 };
