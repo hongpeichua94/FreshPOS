@@ -9,6 +9,7 @@ import {
   ShoppingOutlined,
   FileTextOutlined,
   UploadOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 
 // MODULE CSS
@@ -29,15 +30,13 @@ const NavBar = (props) => {
             // Show login and sign up if user is null
             <div>
               <NavLink to="/login">
-                <Button type="text" size="large">
+                <Button type="primary" style={{ marginRight: "5px" }}>
                   Login
                 </Button>
               </NavLink>
 
               <NavLink to="/register">
-                <Button type="text" size="large">
-                  Sign Up
-                </Button>
+                <Button type="default">Sign Up</Button>
               </NavLink>
             </div>
           ) : (
@@ -67,11 +66,11 @@ const NavBar = (props) => {
               {userCtx.role == "ADMIN" && (
                 <NavLink to="/inventory">
                   <UploadOutlined
-                    style={{ fontSize: "28px", marginLeft: "10px" }}
+                    style={{ fontSize: "28px", marginRight: "10px" }}
                   />{" "}
                 </NavLink>
               )}
-              <Button type="text" size="large" onClick={userCtx.logout}>
+              <Button danger onClick={userCtx.logout}>
                 Logout
               </Button>
             </>
