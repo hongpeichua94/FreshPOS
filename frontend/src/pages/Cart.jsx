@@ -48,6 +48,23 @@ const Cart = (props) => {
       title: "Quantity",
       dataIndex: "quantity",
       width: "15%",
+      render: (text, record) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button
+            onClick={() => decrement(record.uuid)}
+            disabled={record.quantity <= 1}
+          >
+            -
+          </Button>
+          <span style={{ margin: "0 8px" }}>{record.quantity}</span>
+          <Button
+            onClick={() => increment(record.uuid)}
+            disabled={record.quantity >= 10}
+          >
+            +
+          </Button>
+        </div>
+      ),
     },
     {
       title: "Subtotal",
@@ -70,6 +87,52 @@ const Cart = (props) => {
       ),
     },
   ];
+
+  const increment = async (uuid) => {
+    const updatedItems = cartItems.map((item) =>
+      item.uuid === uuid ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCartItems(updatedItems);
+    // Optionally, send update to server
+    await updateCartQuantity(
+      uuid,
+      updatedItems.find((item) => item.uuid === uuid).quantity
+    );
+  };
+
+  const decrement = async (uuid) => {
+    const updatedItems = cartItems.map((item) =>
+      item.uuid === uuid && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    );
+    setCartItems(updatedItems);
+    // Optionally, send update to server
+    await updateCartQuantity(
+      uuid,
+      updatedItems.find((item) => item.uuid === uuid).quantity
+    );
+  };
+
+  const updateCartQuantity = async (uuid, newQuantity) => {
+    try {
+      const res = await fetchData(
+        "/api/cart/items",
+        "PATCH",
+        { uuid: uuid, quantity: newQuantity },
+        undefined,
+        userCtx.accessToken
+      );
+      if (res.ok) {
+        await fetchCartDetail(userCtx.userId, userCtx.accessToken);
+        await props.fetchCartSummary(userCtx.userId, userCtx.accessToken);
+      } else {
+        console.error(res.data);
+      }
+    } catch (error) {
+      console.error("Error updating cart quantity:", error);
+    }
+  };
 
   const fetchCartDetail = async (userId, accessToken) => {
     setLoading(true); // Set loading the true while data is being fetched
@@ -120,7 +183,8 @@ const Cart = (props) => {
       );
 
       if (res.ok) {
-        message.success(`Order submitted!`);
+        message.success("Order submitted!");
+        await props.fetchCartSummary(userCtx.userId, userCtx.accessToken);
       } else {
         console.error("Error submitting order:", res.data);
       }
@@ -146,6 +210,7 @@ const Cart = (props) => {
         style={{
           margin: "10px 16px",
           display: "flex",
+          width: "100vw",
           gap: "16px",
         }}
       >
@@ -153,7 +218,7 @@ const Cart = (props) => {
           style={{
             padding: 50,
             minHeight: "90vh",
-            maxWidth: "60vw",
+            flex: "0.7",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}
@@ -170,7 +235,7 @@ const Cart = (props) => {
           style={{
             padding: 50,
             minHeight: "90vh",
-            maxWidth: "40vw",
+            flex: "0.2",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}
@@ -190,7 +255,7 @@ const Cart = (props) => {
             )}
           />
           <br></br>
-          <Link to="/home">
+          <Link to="/order">
             <Button type="primary" shape="round" onClick={submitOrder}>
               Proceed to Checkout
             </Button>
