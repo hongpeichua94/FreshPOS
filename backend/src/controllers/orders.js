@@ -131,9 +131,10 @@ const createNewOrder = async (req, res) => {
     await db.query("DELETE FROM cart_items WHERE cart_id = $1", [cartId]);
 
     // Clear cart total
-    await db.query("UPDATE cart SET subtotal = 0, total = 0 WHERE uuid = $1", [
-      cartId,
-    ]);
+    await db.query(
+      "UPDATE cart SET subtotal = 0, total = 0, quantity = 0 WHERE uuid = $1",
+      [cartId]
+    );
 
     res.json({ status: "success", orderId });
   } catch (error) {
