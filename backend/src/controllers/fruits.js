@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 });
 
 // Set up multer middleware
-const upload = multer({ storage: storage }).single("image");
+const upload = multer({ storage: storage }).single("file");
 
 const getAllFruits = async (req, res) => {
   try {
