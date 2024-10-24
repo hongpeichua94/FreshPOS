@@ -39,7 +39,7 @@ const Home = (props) => {
               name={item.name}
               description={item.description}
               price={item.price}
-              image_url={item.image_url}
+              image={item.image.replace(/^public\//, "/")}
               stocks={item.quantity - item.sold}
               fetchCartSummary={props.fetchCartSummary}
             ></FruitCard>

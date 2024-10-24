@@ -48,7 +48,13 @@ const FruitCard = (props) => {
         borderColor: "#000",
         borderWidth: "2px",
       }}
-      cover={<img src={props.image_url} style={{ padding: "30px" }} />}
+      cover={
+        <img
+          crossOrigin="anonymous"
+          src={`http://localhost:5001${props.image}`}
+          style={{ padding: "30px" }}
+        />
+      }
       actions={[
         <Button
           type="primary"
