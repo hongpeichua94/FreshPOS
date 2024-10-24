@@ -32,6 +32,16 @@
   font-weight: 400;
 }
 
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent; /* Ensure no background color */
+  border: none; /* Remove default button border */
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .body * {
   margin: 2px;
 }
