@@ -20,7 +20,7 @@ const router = express.Router();
 
 router.get("/fruit", getAllFruits);
 router.get("/fruit/:id", getFruitById);
-router.put("/fruit/add", authAdmin, addNewFruit);
+router.post("/fruit/add", authAdmin, addNewFruit);
 router.patch("/fruit/:id", authAdmin, updateFruitDetails);
 
 module.exports = router;

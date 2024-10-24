@@ -21,12 +21,17 @@ const limiter = rateLimit({
 });
 
 const app = express();
+const path = require("path");
 
 app.use(cors());
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Serve static files from the uploads directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/auth", auth);
 app.use("/api", users);
