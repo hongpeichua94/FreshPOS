@@ -23,11 +23,12 @@ const Inventory = () => {
       pageSize: 10,
     },
   });
-  const [showInventoryUpdateModal, setShowInventoryUpdateModal] =
-    useState(false);
+
   const [fruitDetails, setFruitDetails] = useState({});
 
   const [showInventoryAddModal, setShowInventoryAddModal] = useState(false);
+  const [showInventoryUpdateModal, setShowInventoryUpdateModal] =
+    useState(false);
 
   const columns = [
     {
@@ -51,13 +52,14 @@ const Inventory = () => {
     },
     {
       title: "Image",
-      dataIndex: "image_url",
+      dataIndex: "image",
       width: "15%",
       render: (text) =>
         text ? (
           <img
-            src={text}
             alt="item"
+            crossOrigin="anonymous"
+            src={`http://localhost:5001${text.replace(/^public\//, "/")}`}
             style={{ width: "100%", height: "auto", maxWidth: "100px" }}
           />
         ) : (
@@ -86,8 +88,16 @@ const Inventory = () => {
       width: "10%",
     },
     {
-      title: "Total sold",
+      title: "Sold",
       dataIndex: "sold",
+      width: "10%",
+    },
+    {
+      title: "Stock",
+      render: (text, record) => {
+        const stock = record.quantity - record.sold; // Calculate stock
+        return <span>{stock}</span>; // Display the stock value
+      },
       width: "10%",
     },
     {
@@ -176,9 +186,10 @@ const Inventory = () => {
           key={fruitDetails.id}
           name={fruitDetails.name}
           description={fruitDetails.description}
-          imageUrl={fruitDetails.image_url}
+          image={fruitDetails.image}
           price={fruitDetails.price}
           quantity={fruitDetails.quantity}
+          sold={fruitDetails.sold}
           setShowInventoryUpdateModal={setShowInventoryUpdateModal}
           fetchInventoryData={fetchInventoryData}
         />
