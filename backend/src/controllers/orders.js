@@ -74,7 +74,7 @@ const createNewOrder = async (req, res) => {
 
     // Retrieve cart items
     const cartItemsResult = await db.query(
-      "SELECT a.*, b.name, b.description, b.image_url FROM cart_items a JOIN fruits b ON a.fruit_id = b.id WHERE cart_id = $1",
+      "SELECT a.*, b.name, b.description, b.image FROM cart_items a JOIN fruits b ON a.fruit_id = b.id WHERE cart_id = $1",
       [cartId]
     );
 

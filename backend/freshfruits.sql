@@ -68,7 +68,7 @@ CREATE TABLE fruits (
 	id SERIAL NOT NULL PRIMARY KEY,
 	name VARCHAR(20) NOT NULL,
 	description VARCHAR(255),
-	image_url VARCHAR(255),
+	image VARCHAR(255),
 	price FLOAT(24) NOT NULL,
 	quantity INTEGER NOT NULL,
 	sold INTEGER NOT NULL DEFAULT 0,
@@ -76,7 +76,7 @@ CREATE TABLE fruits (
 	updated_at TIMESTAMP DEFAULT NOW()
 )
 
-INSERT INTO fruits (name,description,image_url, price,quantity) VALUES
+INSERT INTO fruits (name,description,image, price,quantity) VALUES
 ('Apple', 'China Fuji Apples', 'https://cdn.standardmedia.co.ke/images/wysiwyg/images/K95jKvNXMJikvYAhmdf2KoOBhENB3OirbpTr5E5X.jpg', 1.00, 30),
 ('Orange', 'Sunkist Australia Navel Orange', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdT5kxddtdF4tFQ4dZGjzO4pChcP2rQL5KJg&s', 1.50, 25),
 ('Banana', 'Sumifru Kamsookwang Banana', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY8bSoZRsoX2Qlk-TSU9ZGA1ZlK4KYOQAjmQ&s', 2.00, 40)

@@ -25,7 +25,7 @@ const getCartItemsByUserId = async (req, res) => {
     const cartId = cartResult.rows[0].cart_id;
 
     const cartItems = await db.query(
-      "SELECT a.*, b.name, b.description, b.image_url FROM cart_items a JOIN fruits b ON a.fruit_id = b.id WHERE cart_id = $1",
+      "SELECT a.*, b.name, b.description, b.image FROM cart_items a JOIN fruits b ON a.fruit_id = b.id WHERE cart_id = $1",
       [cartId]
     );
     res.json(cartItems.rows);
