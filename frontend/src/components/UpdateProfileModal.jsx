@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // ANT DESIGN
-import { Button } from "antd";
+import { Button, message } from "antd";
 
 // MODULE CSS
 import styles from "./Modal.module.css";
@@ -40,7 +40,7 @@ const OverLay = (props) => {
     );
 
     if (res.ok) {
-      alert(`Profile updated successfully!`);
+      message.success("Profile updated successfully");
       props.fetchUserDetails(userId);
       props.setShowProfileUpdateModal(false);
     } else {
