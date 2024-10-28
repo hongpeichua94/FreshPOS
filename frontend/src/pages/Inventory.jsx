@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // COMPONENTS
@@ -6,7 +7,16 @@ import UpdateInventoryModal from "../components/UpdateInventoryModal";
 import AddInventoryModal from "../components/AddInventoryModal";
 
 // ANT DESIGN
-import { Divider, Layout, Table, Empty, theme, Space, Button } from "antd";
+import {
+  Divider,
+  Layout,
+  Table,
+  Empty,
+  theme,
+  Space,
+  Button,
+  message,
+} from "antd";
 
 // SCRIPTS
 import { getInventoryInfo, getFruitDetail } from "../scripts/api";
@@ -14,6 +24,7 @@ import { getInventoryInfo, getFruitDetail } from "../scripts/api";
 const { Content } = Layout;
 
 const Inventory = () => {
+  const fetchData = useFetch();
   const userCtx = useContext(UserContext);
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -101,7 +112,7 @@ const Inventory = () => {
       width: "10%",
     },
     {
-      title: "",
+      title: "Actions",
       key: "update",
       render: (record) => (
         <Space size="middle">
@@ -110,6 +121,12 @@ const Inventory = () => {
             onClick={() => handleUpdateClick(record.id)}
           >
             Update
+          </a>
+          <a
+            style={{ color: "#FF4D4F" }}
+            onClick={() => removeFruit(record.id)}
+          >
+            Remove
           </a>
         </Space>
       ),
@@ -154,7 +171,36 @@ const Inventory = () => {
       const data = await getFruitDetail(id, accessToken);
       setFruitDetails(data);
     } catch (error) {
-      console.error("Error fetching fruit deatils :", error);
+      console.error("Error fetching fruit details :", error);
+    }
+  };
+
+  const removeFruit = async (id) => {
+    const confirmDelete = confirm(
+      "Are you sure you want to proceed to remove fruit from inventory?"
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+    try {
+      const res = await fetchData(
+        "/api/fruit",
+        "DELETE",
+        { id: id },
+        userCtx.accessToken
+      );
+
+      if (res.ok) {
+        const deletedFruit = res.data.deletedFruit;
+        message.success(`${deletedFruit.name} removed from inventory`);
+        await fetchInventoryData(userCtx.accessToken);
+      } else {
+        alert(JSON.stringify(res.data));
+        console.log(res.data);
+      }
+    } catch (error) {
+      console.error("Error removing fruit from inventory:", error);
     }
   };
 

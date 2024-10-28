@@ -5,6 +5,7 @@ const {
   getFruitById,
   addNewFruit,
   updateFruitDetails,
+  deleteFruit,
 } = require("../controllers/fruits");
 
 // const {
@@ -22,5 +23,6 @@ router.get("/fruit", getAllFruits);
 router.get("/fruit/:id", getFruitById);
 router.post("/fruit/add", authAdmin, addNewFruit);
 router.patch("/fruit/:id", authAdmin, updateFruitDetails);
+router.delete("/fruit", authAdmin, deleteFruit);
 
 module.exports = router;

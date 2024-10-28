@@ -191,9 +191,40 @@ const updateFruitDetails = async (req, res) => {
 //   }
 // };
 
+const deleteFruit = async (req, res) => {
+  // Validate input
+  if (!req.body.id) {
+    return res
+      .status(400)
+      .json({ status: "error", msg: "Fruit id is required" });
+  }
+
+  try {
+    const fruitResult = await db.query("SELECT * FROM fruits WHERE id = $1", [
+      req.body.id,
+    ]);
+
+    const deletedFruit = fruitResult.rows[0];
+
+    await db.query("DELETE FROM fruits WHERE id = $1", [req.body.id]);
+
+    res.json({
+      status: "ok",
+      msg: "Fruit deleted from inventory",
+      deletedFruit,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error deleting fruit from inventory" });
+  }
+};
+
 module.exports = {
   getAllFruits,
   getFruitById,
   addNewFruit,
   updateFruitDetails,
+  deleteFruit,
 };
