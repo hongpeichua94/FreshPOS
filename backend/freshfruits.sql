@@ -32,7 +32,7 @@ CREATE TABLE payment_statuses (
 )
 
 INSERT INTO payment_statuses VALUES
-	('PENDING')
+	('PENDING'),
 	('SUCCEED'),
 	('FAILED')
 
@@ -42,12 +42,13 @@ CREATE TABLE delivery_statuses (
 )
 
 INSERT INTO delivery_statuses VALUES 
-	('PENDING')
+	('PENDING'),
 	('SCHEDULED'),
 	('OUT FOR DELIVERY'),
 	('DELIVERED')	
 
 ----------------------------
+create extension if not exists "uuid-ossp"
 
 CREATE TABLE users (
 	uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -77,9 +78,9 @@ CREATE TABLE fruits (
 )
 
 INSERT INTO fruits (name,description,image, price,quantity) VALUES
-('Apple', 'China Fuji Apples', 'https://cdn.standardmedia.co.ke/images/wysiwyg/images/K95jKvNXMJikvYAhmdf2KoOBhENB3OirbpTr5E5X.jpg', 1.00, 30),
-('Orange', 'Sunkist Australia Navel Orange', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdT5kxddtdF4tFQ4dZGjzO4pChcP2rQL5KJg&s', 1.50, 25),
-('Banana', 'Sumifru Kamsookwang Banana', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY8bSoZRsoX2Qlk-TSU9ZGA1ZlK4KYOQAjmQ&s', 2.00, 40)
+('Apple', 'China Fuji Apples', 'public/uploads/1729752708886-apple.jpeg', 1.00, 30),
+('Orange', 'Sunkist Australia Navel Orange', 'public/uploads/1729753140211-orange.jpg', 1.50, 25),
+('Banana', 'Sumifru Kamsookwang Banana', 'public/uploads/1729745170107-banana.jpeg', 2.00, 40)
 
 CREATE TABLE cart (
 	uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
