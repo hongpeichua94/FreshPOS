@@ -6,27 +6,31 @@ FreshPOS is a user-friendly and efficient system designed to streamline sales pr
 
 #1 As a customer, I want to see a list of fruits that are available to buy (complete with stock and pricing information), so that I can decide which fruits I want to buy.
 
-<img src="./frontend/public/home.png">
+<img src="./frontend/public/home_v2.png">
 
 
 #2 As a customer, I want to keep track of the fruits and quantity that I have shortlisted (including the total amount I need to pay), so that I can adjust my purchasing decisions as I shop.
 
-<img src="./frontend/public/addToCart.gif">
+<img src="./frontend/public/addToCart2.gif">
 
 
 #3 As a customer, I want to submit my order of the fruits I selected, so that I can complete my purchase when I am done shopping. Assume that payment is done separate from this POS application.
 
-<img src="./frontend/public/submitOrders.gif">
+<img src="./frontend/public/submitOrders2.gif">
 
 (Optional) As a customer, I want to be able to log in and see my order history, so that I can track my previous purchases.
 
-<img src="./frontend/public/login.gif">
+<img src="./frontend/public/orderHistory2.png">
 
 ## Owner Access
 
 #4 As an owner, I want to see the orders that my customers have submitted, so that I can fulfill their orders.
 
-<img src="./frontend/public/acceptOrder.gif">
+<img src="./frontend/public/acceptOrder2.gif">
+
+(Optional) As an owner, I want to be able to add new fruits and amend my stock levels, so that I can keep my online store up to date.
+
+<img src="./frontend/public/addInventory2.gif">
 
 
 # Technologies Used
@@ -39,15 +43,20 @@ FreshPOS is a user-friendly and efficient system designed to streamline sales pr
 # React Hierarchy
 <pre>
 App
-|__ Login
-      |__ CreateAccountModal
+|__ NavBar      
 |__ Home
+      |__ Login
+      |__ Register
+      |__ HeroBanner
       |__ FruitCard
 |__ Profile
       |__ UpdateProfileModal
 |__ Cart
 |__ MyOrders
 |__ AllOrders
+|__ Inventory
+      |__ AddInventoryModal
+      |__ UpdateInventoryModal
 |__ NotFound
 </pre>
 
@@ -69,6 +78,7 @@ App
   npm i cors helmet express-rate-limit
   npm i dotenv
   npm i pg
+  npm i multer
 </pre>
 4. Create your .env file with the following variables:
 ```
