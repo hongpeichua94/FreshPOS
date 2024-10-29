@@ -54,8 +54,10 @@ const login = async (req, res) => {
     const user = auth.rows[0];
     const result = await bcrypt.compare(req.body.password, user.password);
     if (!result) {
-      console.error("Invalid email or password");
-      return res.status(401).json({ status: "error", msg: "Login failed" });
+      return res.status(401).json({
+        status: "error",
+        msg: "Login failed: Invalid email or password",
+      });
     }
 
     const claims = {
@@ -84,7 +86,6 @@ const login = async (req, res) => {
     console.error(error.message);
     return res
       .status(400)
-
       .json({ status: "error", msg: "Catch Caught: Login failed" });
   }
 };

@@ -46,6 +46,7 @@ const Login = () => {
       } else {
         setError(JSON.stringify(res.data));
         setIsLoading(false);
+        message.warning(res.data);
       }
     } catch (error) {
       console.error("Error creating new account", error);

@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // ANT DESIGN
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input, message } from "antd";
 
 // MODULE CSS
 import styles from "./Login.module.css";
@@ -34,7 +34,7 @@ const Login = () => {
       localStorage.setItem("userId", res.data.user_id);
       localStorage.setItem("role", res.data.role);
     } else {
-      alert(JSON.stringify(res.data));
+      message.warning(res.data);
     }
   };
 
