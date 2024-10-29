@@ -87,6 +87,7 @@ CREATE TABLE cart (
 	user_id UUID NOT NULL,
 	subtotal FLOAT(24),
 	total FLOAT(24),
+	quantity INTEGER,
 	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(uuid)
 )
 
