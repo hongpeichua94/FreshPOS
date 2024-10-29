@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import useFetch from "../hooks/useFetch";
 
@@ -104,7 +104,7 @@ const Login = () => {
             <Button className={styles.button} type="primary" htmlType="submit">
               Register
             </Button>
-            Back to <a href="/login">Login</a>
+            Back to <Link to="/login">Login</Link>
           </Form.Item>
         </Form>
       </div>

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
@@ -93,7 +94,7 @@ const Login = () => {
             >
               Log in
             </Button>
-            No account? <a href="/register">Register now</a>
+            No account? <Link to="/register">Register now</Link>
           </Form.Item>
         </Form>
       </div>
