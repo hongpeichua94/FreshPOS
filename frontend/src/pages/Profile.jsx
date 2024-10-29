@@ -16,7 +16,7 @@ import { getAccountInfo } from "../scripts/api";
 
 const { Content } = Layout;
 
-const Profile = () => {
+const Profile = (props) => {
   const userCtx = useContext(UserContext);
   const [userDetails, setUserDetails] = useState([]);
   const [showProfileUpdateModal, setShowProfileUpdateModal] = useState(false);
@@ -61,6 +61,7 @@ const Profile = () => {
           email={userDetails.email}
           setShowProfileUpdateModal={setShowProfileUpdateModal}
           fetchUserDetails={fetchUserDetails}
+          fetchAccountData={props.fetchAccountData}
         />
       )}
       <div className={styles.profile}>

@@ -144,7 +144,11 @@ function App() {
         <Route
           path="/profile"
           element={
-            isLoggedIn ? <Profile userId={userId} /> : <Navigate to="/login" />
+            isLoggedIn ? (
+              <Profile userId={userId} fetchAccountData={fetchAccountData} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route

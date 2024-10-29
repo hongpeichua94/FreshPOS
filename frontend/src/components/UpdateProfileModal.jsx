@@ -43,6 +43,7 @@ const OverLay = (props) => {
       message.success("Profile updated successfully");
       props.fetchUserDetails(userId);
       props.setShowProfileUpdateModal(false);
+      await props.fetchAccountData(userId);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -122,6 +123,7 @@ const UpdateProfileModal = (props) => {
           phone={props.phone}
           setShowProfileUpdateModal={props.setShowProfileUpdateModal}
           fetchUserDetails={props.fetchUserDetails}
+          fetchAccountData={props.fetchAccountData}
         />,
         document.querySelector("#modal-root")
       )}
