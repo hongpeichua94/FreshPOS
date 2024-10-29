@@ -24,7 +24,7 @@ const OverLay = (props) => {
     );
 
     if (!confirmUpdate) {
-      return; // Do nothing if user cancels
+      return;
     }
 
     const res = await fetchData(

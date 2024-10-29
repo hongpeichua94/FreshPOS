@@ -187,7 +187,7 @@ const deleteCartItem = async (req, res) => {
       [newCartSubtotal, newCartTotal, newCartQuantity, cartId]
     );
 
-    res.json({ status: "ok", msg: "Item removed from cart" });
+    res.status(200).json({ status: "ok", msg: "Item removed from cart" });
   } catch (error) {
     console.error(error.message);
     res

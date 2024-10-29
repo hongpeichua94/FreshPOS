@@ -55,7 +55,7 @@ const OverLay = (props) => {
     );
 
     if (!confirmUpdate) {
-      return; // Do nothing if user cancels
+      return;
     }
 
     const { name, description, image, price, quantity } = values;
@@ -169,7 +169,6 @@ const OverLay = (props) => {
             label="Image"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            // rules={[{ required: true, message: "Please upload an image!" }]}
           >
             <>
               <Upload

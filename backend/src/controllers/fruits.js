@@ -66,7 +66,9 @@ const addNewFruit = async (req, res) => {
         `INSERT INTO fruits (name,description,image,price,quantity,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,NOW(),NOW())`,
         [name, description, imagePath, price, quantity]
       );
-      res.json({ status: "ok", msg: "New fruit added successfully" });
+      res
+        .status(200)
+        .json({ status: "ok", msg: "New fruit added successfully" });
     });
   } catch (error) {
     console.error(error.message);
@@ -85,6 +87,7 @@ const updateFruitDetails = async (req, res) => {
       }
 
       console.log("Uploaded file:", req.file); // Debugging log
+
       const { name, description, price, quantity } = req.body;
       const imagePath = req.file ? req.file.path : null;
 
@@ -95,8 +98,6 @@ const updateFruitDetails = async (req, res) => {
       if (imagePath) updateDetails.image = imagePath;
       if (price) updateDetails.price = price;
       if (quantity) updateDetails.quantity = quantity;
-
-      console.log(updateDetails);
 
       // Check if there are fields to update
       if (Object.keys(updateDetails).length === 0) {
@@ -208,7 +209,7 @@ const deleteFruit = async (req, res) => {
 
     await db.query("DELETE FROM fruits WHERE id = $1", [req.body.id]);
 
-    res.json({
+    res.status(200).json({
       status: "ok",
       msg: "Fruit deleted from inventory",
       deletedFruit,

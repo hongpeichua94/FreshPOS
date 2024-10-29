@@ -136,7 +136,7 @@ const createNewOrder = async (req, res) => {
       [cartId]
     );
 
-    res.json({ status: "success", orderId });
+    res.status(200).json({ status: "success", orderId });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "Error creating new order" });
@@ -209,7 +209,10 @@ const updateOrderStatusAndInventory = async (req, res) => {
     console.error(error.message);
     res
       .status(400)
-      .json({ status: "error", msg: "Error updating order status" });
+      .json({
+        status: "error",
+        msg: "Error updating order status and inventory",
+      });
   }
 };
 

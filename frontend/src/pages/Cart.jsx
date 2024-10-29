@@ -16,7 +16,7 @@ import {
 } from "antd";
 
 // SCRIPTS
-import { getCartDetail, getCartSummary } from "../scripts/api";
+import { getCartDetail } from "../scripts/api";
 
 const { Content } = Layout;
 
@@ -93,7 +93,7 @@ const Cart = (props) => {
       item.uuid === uuid ? { ...item, quantity: item.quantity + 1 } : item
     );
     setCartItems(updatedItems);
-    // Optionally, send update to server
+    // Send update to server
     await updateCartQuantity(
       uuid,
       updatedItems.find((item) => item.uuid === uuid).quantity
@@ -107,7 +107,7 @@ const Cart = (props) => {
         : item
     );
     setCartItems(updatedItems);
-    // Optionally, send update to server
+    // Send update to server
     await updateCartQuantity(
       uuid,
       updatedItems.find((item) => item.uuid === uuid).quantity

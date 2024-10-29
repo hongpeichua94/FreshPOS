@@ -9,7 +9,6 @@ import {
   ShoppingOutlined,
   FileTextOutlined,
   UploadOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
 
 // MODULE CSS
