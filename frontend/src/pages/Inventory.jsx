@@ -71,6 +71,11 @@ const Inventory = () => {
             alt="item"
             crossOrigin="anonymous"
             src={`http://localhost:5001${text.replace(/^public\//, "/")}`}
+            src={`https://freshpos.onrender.com${text.replace(
+              /^public\//,
+              "/"
+            )}`}
+            // src={`http://localhost:5001${text.replace(/^public\//, "/")}`}
             style={{ width: "100%", height: "auto", maxWidth: "100px" }}
           />
         ) : (

@@ -52,6 +52,8 @@ const FruitCard = (props) => {
         <img
           crossOrigin="anonymous"
           src={`http://localhost:5001${props.image}`}
+          src={`https://freshpos.onrender.com${props.image}`}
+          // src={`http://localhost:5001${props.image}`}
           style={{ padding: "30px" }}
         />
       }
