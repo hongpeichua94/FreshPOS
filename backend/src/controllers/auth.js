@@ -84,9 +84,7 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    return res
-      .status(400)
-      .json({ status: "error", msg: "Catch Caught: Login failed" });
+    return res.status(400).json({ status: "error", msg: "Login failed" });
   }
 };
 

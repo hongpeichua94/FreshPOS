@@ -207,12 +207,10 @@ const updateOrderStatusAndInventory = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res
-      .status(400)
-      .json({
-        status: "error",
-        msg: "Error updating order status and inventory",
-      });
+    res.status(400).json({
+      status: "error",
+      msg: "Error updating order status and inventory",
+    });
   }
 };
 
