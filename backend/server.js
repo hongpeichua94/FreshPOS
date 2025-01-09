@@ -23,13 +23,14 @@ const limiter = rateLimit({
 const app = express();
 const path = require("path");
 
-app.use(cors());
-app.use(helmet());
+// May want to configure cors and helmet
+app.use(cors()); // to enable CORs; allows all domains to make requests to api
+app.use(helmet()); // secure app by setting various HTTP headers
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static files from the uploads directory
+// Serve static files from the uploads or public directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "public")));
 

@@ -50,6 +50,7 @@ const OverLay = (props) => {
     }
   };
 
+  // run once and assign initial values of form field when component first mounts
   useEffect(() => {
     firstNameRef.current.value = props.firstName;
     lastNameRef.current.value = props.lastName;

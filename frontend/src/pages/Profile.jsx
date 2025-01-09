@@ -41,7 +41,7 @@ const Profile = (props) => {
   if (userDetails) {
     const createdDate = new Date(userDetails.created_at);
     const year = createdDate.getFullYear();
-    const month = String(createdDate.getMonth() + 1).padStart(2, "0");
+    const month = String(createdDate.getMonth() + 1).padStart(2, "0"); // getMonth() zero-indexed hence +1; padStart ensure it's 2 digits (eg. Jan, returns 01)
     const day = String(createdDate.getDate()).padStart(2, "0");
     formattedDate = `${year}-${month}-${day}`;
   }
