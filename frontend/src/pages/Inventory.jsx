@@ -69,13 +69,13 @@ const Inventory = () => {
         text ? (
           <img
             alt="item"
-            crossOrigin="anonymous"
+            loading="lazy"
+            crossOrigin="anonymous" // image fetched without sending cookies or HTTP authentication
+            // src={`https://freshpos.onrender.com${text.replace(
+            //   /^public\//,
+            //   "/"
+            // )}`}
             src={`http://localhost:5001${text.replace(/^public\//, "/")}`}
-            src={`https://freshpos.onrender.com${text.replace(
-              /^public\//,
-              "/"
-            )}`}
-            // src={`http://localhost:5001${text.replace(/^public\//, "/")}`}
             style={{ width: "100%", height: "auto", maxWidth: "100px" }}
           />
         ) : (

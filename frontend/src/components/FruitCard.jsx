@@ -50,10 +50,10 @@ const FruitCard = (props) => {
       }}
       cover={
         <img
-          crossOrigin="anonymous"
+          loading="lazy"
+          crossOrigin="anonymous" // image fetched without sending cookies or HTTP authentication
+          // src={`https://freshpos.onrender.com${props.image}`}
           src={`http://localhost:5001${props.image}`}
-          src={`https://freshpos.onrender.com${props.image}`}
-          // src={`http://localhost:5001${props.image}`}
           style={{ padding: "30px" }}
         />
       }
