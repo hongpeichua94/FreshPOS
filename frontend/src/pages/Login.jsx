@@ -28,9 +28,11 @@ const Login = () => {
 
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
+      userCtx.setRefreshToken(res.data.refresh);
       userCtx.setUserId(res.data.user_id);
       userCtx.setRole(res.data.role);
       localStorage.setItem("accessToken", res.data.access);
+      localStorage.setItem("refreshToken", res.data.refresh);
       localStorage.setItem("userId", res.data.user_id);
       localStorage.setItem("role", res.data.role);
     } else {

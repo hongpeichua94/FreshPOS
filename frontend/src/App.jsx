@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
+import useFetch from "./hooks/useFetch";
 import UserContext from "./context/user";
 
 // COMPONENTS
@@ -20,13 +21,21 @@ import NotFound from "./pages/NotFound";
 import { getAccountInfo, getCartSummary } from "./scripts/api";
 
 function App() {
+  const fetchData = useFetch();
+
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken") || ""
+  );
+  const [refreshToken, setRefreshToken] = useState(
+    localStorage.getItem("refreshToken") || ""
   );
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
   const [role, setRole] = useState(localStorage.getItem("role") || "");
 
+  const [loading, setLoading] = useState(true);
   const [accountDetails, setAccountDetails] = useState({});
+
+  // can try to use useContext for cart values
   const [cartQuantity, setCartQuantity] = useState([]);
   const [cartSummary, setCartSummary] = useState([]);
 
@@ -48,19 +57,36 @@ function App() {
 
   const handleLogout = () => {
     setAccessToken("");
+    setRefreshToken("");
     setUserId("");
     setRole("");
     localStorage.clear();
     navigate("/");
   };
 
+  const updateToken = async () => {
+    const res = await fetchData("/auth/refresh", "POST", {
+      refresh: refreshToken,
+    });
+
+    if (res.ok) {
+      setAccessToken(res.data.access);
+      localStorage.setItem("accessToken", res.data.access);
+    } else {
+      message.warning(res.data);
+      handleLogout();
+    }
+  };
+
   // Load user data from localStorage when the app first loads because app state reset upon refresh
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
+    const storedRefreshToken = localStorage.getItem("refreshToken");
     const storedUserId = localStorage.getItem("userId");
     const storedRole = localStorage.getItem("role");
 
     if (storedAccessToken) setAccessToken(storedAccessToken);
+    if (storedRefreshToken) setRefreshToken(storedRefreshToken);
     if (storedUserId) {
       setUserId(storedUserId);
       fetchAccountData(storedUserId);
@@ -69,11 +95,25 @@ function App() {
     if (storedRole) setRole(storedRole);
   }, [userId, accessToken]);
 
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (accessToken) {
+        updateToken();
+      }
+    }, 19 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, [accessToken, refreshToken, loading]);
+
   const userContextValue = {
     accessToken,
     setAccessToken: (token) => {
       setAccessToken(token);
       localStorage.setItem("accessToken", token);
+    },
+    refreshToken,
+    setRefreshToken: (token) => {
+      setRefreshToken(token);
+      localStorage.setItem("refreshToken", token);
     },
     userId,
     setUserId: (id) => {
